@@ -64,10 +64,10 @@ Current compatibility notes:
 - The app includes compatibility fallbacks for older Streamlit APIs.
 - Package warnings from pandas dependencies are non-blocking and do not stop the demo.
 
-If you need to restart the app during a handoff, use the exact project path to avoid import or working-directory issues:
+If you need to restart the app during a handoff, run from the project root to avoid import or working-directory issues:
 
 ```bash
-streamlit run /Users/brandonlewis/Desktop/pyprojects/engineering-knowledge-assistant/frontend/streamlit_app.py --server.port 8501
+streamlit run frontend/streamlit_app.py --server.port 8501
 ```
 
 ## Demo Storyline

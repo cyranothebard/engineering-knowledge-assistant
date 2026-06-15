@@ -2,7 +2,7 @@
 
 ## BridgeOps AI — Portfolio Project #3
 
-**Status:** MVP implementation scaffold complete | **Framework stage:** Knowledge Layer  
+**Status:** Functional MVP complete | **Framework stage:** Knowledge Layer  
 **Stack:** Python · Streamlit · LangChain · ChromaDB · OpenAI Embeddings · Pandas · Pydantic · Plotly · Docker
 
 ---
@@ -12,6 +12,8 @@
 Manufacturing organizations generate large volumes of engineering knowledge but rarely operationalize it well.
 
 SOPs, maintenance procedures, incident reports, safety instructions, and vendor manuals typically sit across shared folders, PDFs, and tribal knowledge channels. Engineers can spend too long finding trusted answers, and managers struggle to know whether critical knowledge exists at all.
+
+This project is designed to make shop floor documentation searchable, traceable, and operationally useful.
 
 The Engineering Knowledge Assistant demonstrates how fragmented engineering documentation can be transformed into governed operational intelligence through:
 
@@ -102,6 +104,10 @@ Each response includes:
 
 See [docs/architecture.md](docs/architecture.md) for the logical system view.
 
+## Product Snapshot
+
+![Engineering Knowledge Assistant UI](docs/images/engineering-knowledge-assistant-ui.png)
+
 ---
 
 ## Features
@@ -170,6 +176,8 @@ Tracked metrics:
 ## Sample Corpus
 
 The included demo corpus represents **BridgeOps Manufacturing GmbH** at the Lindau Manufacturing Facility and covers:
+
+The corpus combines synthetic BridgeOps engineering documents with curated vendor-style reference proxies so the demo is realistic without using confidential real plant data.
 
 - Packaging Line 4
 - Conveyor System A
