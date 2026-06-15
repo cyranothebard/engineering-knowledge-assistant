@@ -1,5 +1,8 @@
 # Engineering Knowledge Assistant Demo Leave-Behind
 
+Language: [EN](demo-leave-behind.md) | [DE](demo-leave-behind-de.md)
+
+
 ## What You Just Saw
 
 Engineering Knowledge Assistant turns approved engineering documentation into a trusted, multilingual answer layer for manufacturing operations.

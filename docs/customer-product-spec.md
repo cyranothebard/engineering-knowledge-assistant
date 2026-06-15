@@ -1,5 +1,8 @@
 # Engineering Knowledge Assistant Customer Product Specification
 
+Language: [EN](customer-product-spec.md) | [DE](customer-product-spec-de.md)
+
+
 ## Document Set
 
 This is the master technical specification.

@@ -1,5 +1,8 @@
 # Engineering Knowledge Assistant Sales Overview
 
+Language: [EN](customer-product-spec-sales.md) | [DE](customer-product-spec-sales-de.md)
+
+
 ## Market Problem
 
 Manufacturing organizations are rich in knowledge but poor in access.

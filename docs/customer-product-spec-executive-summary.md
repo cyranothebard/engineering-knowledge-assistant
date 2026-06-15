@@ -1,5 +1,8 @@
 # Engineering Knowledge Assistant Executive Summary
 
+Language: [EN](customer-product-spec-executive-summary.md) | [DE](customer-product-spec-executive-summary-de.md)
+
+
 ## One-Line Summary
 
 Engineering Knowledge Assistant turns approved engineering documents into a traceable, multilingual answer system for operations, maintenance, quality, and safety.

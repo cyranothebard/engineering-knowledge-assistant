@@ -1,5 +1,8 @@
 # Engineering Knowledge Assistant Demo Runbook
 
+Language: [EN](demo-runbook.md) | [DE](demo-runbook-de.md)
+
+
 ## Purpose
 
 This runbook is intended to let another person run the demo without prior context.
