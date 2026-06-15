@@ -217,6 +217,16 @@ engineering-knowledge-assistant/
 └── Dockerfile
 ```
 
+## Documentation Suite
+
+This project includes a complete documentation suite aligned with other BridgeOps portfolio products:
+
+- [Docs Index](docs/README.md)
+- [Demo Runbook](docs/demo-runbook.md)
+- [Customer Product Spec (Master)](docs/customer-product-spec.md)
+- [Executive Summary](docs/customer-product-spec-executive-summary.md)
+- [Sales Overview](docs/customer-product-spec-sales.md)
+
 ---
 
 ## Quick Start
