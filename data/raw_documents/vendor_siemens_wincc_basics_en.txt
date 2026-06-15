@@ -1,0 +1,195 @@
+SIEMENS WINCC — OPERATOR PANEL INTERFACE GUIDE
+
+Document Version: 2.8
+Product Version: WinCC 7.5 / TIA Portal
+Source: Siemens HMI Documentation
+Retrieved: 2026-02-14
+
+===================================================
+OPERATOR SCREEN STRUCTURE
+===================================================
+
+Standard WinCC Operator Panel Layout:
+
+[Header Bar]
+- Project name
+- Current date/time
+- System status indicator
+
+[Navigation Area] (Left sidebar)
+- Main screens (Process, Setup, Alarms, etc.)
+- User security level indicator
+- Logout button
+
+[Alarm List] (Top-right)
+- Active alarm count
+- Most recent alarm description
+- Alarm timestamp
+- Acknowledge button
+
+[Process Display] (Center)
+- Live sensor readings
+- Equipment state indicators (running, idle, fault)
+- Manual control buttons (where authorized)
+- Chart/trend display (optional)
+
+===================================================
+ALARM DISPLAY & ACKNOWLEDGMENT
+===================================================
+
+Alarm Panel Features:
+
+1. Alarm List View
+   - Shows all active and recent alarms
+   - Sorted by timestamp (newest first)
+   - Columns: Time | Code | Description | Severity
+
+2. Alarm Severity Levels
+   Good (Green):     System operating normally
+   Warning (Yellow): Non-critical issue, monitor
+   Error (Orange):   Condition requires attention
+   Critical (Red):   Safety or operational halt
+
+3. Acknowledging Alarms
+   - Click alarm row
+   - Press "Acknowledge" button
+   - Operator name auto-populated from login
+   - Timestamp recorded
+
+4. Alarm History Export
+   - File menu → Export Alarm Log
+   - Date range selector
+   - Formats: CSV or Excel
+
+===================================================
+PROCESS CONTROL BUTTONS
+===================================================
+
+Common Operator Controls:
+
+START Button (usually green):
+  - Activates process or manual operation
+  - Only visible when system is READY
+  - Disabled during fault conditions
+  - Requires operator acknowledgment (some configurations)
+
+STOP Button (usually red):
+  - Halts current operation gracefully
+  - Allows in-flight processes to complete (configurable)
+  - Brings system to IDLE
+  - Always enabled (safety feature)
+
+EMERGENCY STOP (E-STOP, usually large red button):
+  - Physically hardwired (not software-controlled)
+  - Cuts power to drive systems immediately
+  - Requires manual reset after actuation
+  - Cannot be overridden by software
+
+PAUSE Button (usually yellow):
+  - Pauses process without stopping motors
+  - Allows resumption without restart
+  - Not always present (equipment-dependent)
+
+===================================================
+DATA ENTRY & VALIDATION
+===================================================
+
+Operator Input Fields (User-Entered Parameters):
+
+1. Text Input Fields
+   - Enter product SKU, batch number, etc.
+   - System validates against allowed values
+   - Incorrect entries show red border + error message
+   - Cannot proceed until valid data entered
+
+2. Numeric Input Fields
+   - Temperature setpoint, speed, etc.
+   - Limits enforced (min/max range)
+   - Unit display (°C, m/min, etc.)
+   - Arrow buttons for increment/decrement
+
+3. Dropdown/Combo Boxes
+   - Select from predefined list (Product Type, etc.)
+   - Restricts invalid entries
+   - Typical use: changeover parameters
+
+4. Validation Feedback
+   - Successful entry: green check icon
+   - Invalid entry: red X icon + error text
+   - Example: "Value must be between 50 and 200"
+
+===================================================
+NAVIGATION & SCREEN SWITCHING
+===================================================
+
+Screen Navigation Methods:
+
+1. Sidebar Navigation
+   - Click screen name in left sidebar
+   - Current screen highlighted
+   - Instant screen switch
+
+2. Breadcrumb Trail (top of content area)
+   - Back navigation chain
+   - Click to jump to previous screens
+
+3. Button Navigation
+   - "Next Step" / "Previous Step" buttons
+   - Common in multi-step setup wizards
+   - Validates current screen before advancing
+
+4. Menu Navigation
+   - File → Open Screen (for admin users)
+   - Useful for diagnosis or advanced setup
+
+===================================================
+SYSTEM STATUS INDICATOR
+===================================================
+
+Top-Right Status Panel:
+
+Mode Indicator:
+  MANUAL   (user controls individual motors)
+  AUTOMATIC (system runs programmed sequence)
+  MAINTENANCE (service mode, restricted functions)
+
+Operating State:
+  ┌──────────────────────────┐
+  │ State: RUNNING           │
+  │ Uptime: 12:34:56         │
+  │ CPU Load: 34%            │
+  │ Emergency Stop: OK       │
+  │ Network: Connected       │
+  └──────────────────────────┘
+
+Indicator Colors:
+  Green:  All systems normal
+  Yellow: Warning condition
+  Red:    Critical fault (E-stop engaged or PLC alarm)
+
+===================================================
+TROUBLESHOOTING OPERATOR ACTIONS
+===================================================
+
+If screen is unresponsive:
+  1. Check network cable connection
+  2. Note any alarm messages (screenshot helpful)
+  3. Try switching screens
+  4. If persistent: contact engineering team
+
+If button press has no effect:
+  1. Confirm you are in correct mode (Manual vs. Auto)
+  2. Check if alarm is active (red status bar)
+  3. Verify button is not disabled for current state
+  4. Try pressing button again after 2-second delay
+
+If data entry field is locked:
+  1. Confirm current user permission level
+  2. Exit and re-enter screen (may refresh permissions)
+  3. Contact supervisor if access denied
+
+===================================================
+END OF OPERATOR PANEL GUIDE
+===================================================
+
+For advanced operation: Contact ICS/Control Engineering

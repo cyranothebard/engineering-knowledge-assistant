@@ -1,0 +1,183 @@
+FANUC CRX-10iA — COLLABORATIVE ROBOT SAFETY & OPERATION
+
+Document Version: 2.6
+Product: FANUC CRX-10iA collaborative robot arm
+Source: FANUC Robotics Safety Manual
+Retrieved: 2026-02-14
+
+===================================================
+SAFEGUARDING ZONES
+===================================================
+
+Robot Operating Envelope (Restricted Access Zone):
+
+Primary Workspace:
+  Definition: Full reach of robot arm in all positions
+  Radius: Up to 1300 mm from base center
+  Height: ±600 mm from shoulder height
+  Access: Authorized personnel only
+  Entry procedure: See "Protected Space Entry" (Section 3)
+
+Secondary Zone (Collision Zone):
+  Definition: Area where parts or end-effector might be thrown
+  Exclusion: 2 meters from robot base (all directions)
+  Access: Guarded by physical barrier or emergency stop buttons
+  Entry procedure: Requires formal lockout/tagout
+
+Speed-Limited Zone (Collaborative Zone):
+  Definition: Area within 1.5 m where humans may work alongside robot
+  Force Limit: Robot limited to 80 N peak force (per ISO/TS 15066)
+  Speed Limit: 250 mm/sec in collaborative mode
+  Monitoring: Laser scanner or force-torque sensor ensures compliance
+  Note: Soft robotics design (compliant wrist) reduces impact severity
+
+===================================================
+EMERGENCY STOP (E-STOP) SYSTEM
+===================================================
+
+E-Stop Actuation (Hardwired Safety Circuit):
+
+Button Locations:
+  1. Teach pendant (right-hand button on wrist)
+  2. Robot base (red button, front face)
+  3. Control cabinet (red button, panel door)
+  Operation: Press or twist 90° to activate
+  Feedback: Audible buzzer + arm deceleration to stop
+
+Stop Sequence:
+  Activation → Axes decelerate at maximum rate (~3 G)
+  Duration: Typically 200–500 ms depending on speed
+  Result: Arm comes to mechanical halt
+  Recovery: Manual reset required (turn key on pendant)
+
+E-Stop vs. Soft Stop:
+  E-STOP is ALWAYS available (any mode, any time)
+  Soft Stop (via pendant): Graceful deceleration, programmable
+  Use E-Stop: Immediate hazard
+  Use Soft Stop: Normal operation shutdown
+
+===================================================
+TEACH PENDANT OPERATION
+===================================================
+
+Pendant Controls (Teach Mode Only):
+
+Jog Buttons (directional pad):
+  - Press direction to move specific axis
+  - Continuous motion while held (configurable speed: 10%, 50%, 100%)
+  - Release stops motion
+  - Safe because motion is explicit and continuous
+
+Speed Override Dial:
+  Range: 1% to 100%
+  Setting: Affects both jog speed and program execution speed
+  Typical: Set to 10% during first-time teaches
+  Increment: 1% per click
+
+Mode Selector (back of pendant):
+  TEACH: Manual jog and program entry (safe mode)
+    - Max speed limited to 250 mm/sec
+    - All motion requires button press
+    - Enable switch must be held (dead-man switch)
+  AUTO: Program execution at full speed
+    - Only for trained operators
+    - Requires enable key in control cabinet
+    - Emergency stop always available
+  MANUAL: Direct drive control (advanced)
+    - Not recommended without training
+
+===================================================
+ROBOT CELL ENTRY PROCEDURE
+===================================================
+
+Before entering protected space:
+
+1. Visual confirmation:
+   - Verify robot arm has stopped (no motion)
+   - Check for any dangling parts or objects in workspace
+   - Note any active warning lights
+
+2. Lockout/Tagout (LOTO):
+   - See separate LOTO standard document
+   - Each worker applies personal lock to master E-stop
+   - Post name badge on lock (legal requirement)
+   - Verify no one else can activate machine
+
+3. Personal verification:
+   - Check teach pendant is in TEACH mode
+   - Confirm speed dial set <25%
+   - Note emergency stops are accessible from entry point
+
+4. Entry and work:
+   - Work with colleague when possible
+   - Avoid reaching under suspended parts
+   - Keep clear of pinch points
+   - Keep pendant within arm's reach if repositioning arm
+
+5. Exit procedure:
+   - Clear all tools from workspace
+   - Move arm to safe park position
+   - Remove personal LOTO lock
+   - Verify all workers have exited
+   - Clear to resume automatic operation
+
+===================================================
+MAINTENANCE SCHEDULE
+===================================================
+
+Daily (Start of Shift):
+  - Visual inspection of arm and wiring
+  - E-stop button functionality test (press each button)
+  - Clear debris from workspace
+
+Weekly (Or Every 40 Hours):
+  - Check joint movement smoothness (no grinding)
+  - Verify teach pendant display is clear
+  - Inspect gripper or end-effector for wear
+
+Monthly:
+  - Clean arm exterior (avoid water on connectors)
+  - Test speed override dial (should rotate smoothly)
+  - Verify cable routing is not pinched
+
+Quarterly (Every 500 Hours):
+  - Lubricate wrist joint (per manual spec)
+  - Check torque on mounting bolts
+  - Backup teach programs (copy to USB)
+
+Annually:
+  - Full safety system inspection (certified technician)
+  - Calibration check if precision degraded
+  - Replace any visibly worn cables or connectors
+
+===================================================
+FAULT RESPONSE
+===================================================
+
+If fault occurs during operation:
+
+1. Press E-stop immediately (red button)
+   - Arm stops, alarm indicator lights
+
+2. Observe error code on teach pendant
+   - Common: "Joint 2 Error" (joint stalled)
+   - Record code and time
+
+3. Manual attempt to jog arm:
+   - Switch to TEACH mode
+   - Try jogging affected joint at 10% speed
+   - If motion restricted: STOP (mechanical jam—call technician)
+   - If motion normal: May be temporary; proceed cautiously
+
+4. Document fault:
+   - Timestamp, operator name, error code, what was happening
+   - Report to maintenance team
+
+5. Do NOT attempt repair without training
+
+===================================================
+END OF SAFETY REFERENCE
+===================================================
+
+For full manual: www.fanucamerica.com/support
+Emergency: Local FANUC field service or plant electrician

@@ -1,0 +1,11 @@
+streamlit>=1.36
+pandas>=2.2
+plotly>=5.22
+pydantic>=2.7
+langchain>=0.2
+langchain-text-splitters>=0.2
+langchain-chroma>=0.1
+langchain-openai>=0.1
+chromadb>=0.5
+pypdf>=4.2
+pytest>=8.2

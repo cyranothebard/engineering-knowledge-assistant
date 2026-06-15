@@ -1,0 +1,188 @@
+SEW MOVIGEAR® INLINE PLANETARY GEARMOTOR — MAINTENANCE GUIDE
+
+Document Version: 5.1
+Product Series: MOVIGEAR® precision inline
+Source: SEW Eurodrive Technical Support
+Retrieved: 2026-02-14
+
+===================================================
+LUBRICATION SCHEDULE
+===================================================
+
+Recommended Greasing Intervals:
+
+Standard Industrial Duty (Packaging/Conveyor):
+  Interval: Every 500 operating hours or 6 months (whichever first)
+  Duty: Ambient temperature -20°C to +60°C
+  Product: MOVIGEAR® synthetic grease (SEW part no. 26.051.1000)
+
+Heavy Duty (High-Speed or Shock Load):
+  Interval: Every 250 operating hours or 3 months
+  Duty: Continuous operation, high acceleration cycles
+  Product: Same as standard
+
+Temperature-Corrected Intervals:
+  If ambient > 50°C: Reduce interval by 50% (use 250 hrs or 3 months)
+  If ambient < 0°C: May extend to 12 months (verify low-temp grease compatibility)
+  If ambient > 60°C: Consult SEW engineering (standard grease unsuitable)
+
+===================================================
+GREASING PROCEDURE
+===================================================
+
+Required Materials:
+  - SEW synthetic grease (cartridge or pump dispenser)
+  - Clean cloth (lint-free)
+  - Instruction: Do NOT overfill
+
+Steps:
+
+1. Locate grease fitting on motor body
+   (Usually marked "G" or "GREASE"—located on top or side)
+
+2. Wipe fitting clean with cloth
+   (Prevents dirt ingress)
+
+3. Attach grease gun or pump to fitting
+
+4. Pump grease slowly until:
+   - Slight overflow appears at motor bearing cap, OR
+   - Pressure gauge reads 4–6 bar (do NOT exceed)
+
+5. Wipe excess grease immediately
+   (Prevents contamination of nearby components)
+
+6. Remove grease gun
+
+7. Rotate shaft manually 2–3 full revolutions
+   (Distributes fresh grease throughout bearing)
+
+8. Record date and operator in maintenance log
+
+WARNING: Overfilling causes overheating and seal leakage.
+
+===================================================
+BEARING REPLACEMENT
+===================================================
+
+Indicators for bearing replacement:
+  - Audible grinding or rattling noise
+  - Vibration at motor body (feel manually)
+  - Temperature rise (>10°C above normal)
+  - Visible grease leakage from bearing seal
+
+Required tools:
+  - Hex wrench set (for mounting bolts)
+  - Bearing puller (if bearing is seized)
+  - New bearing set (per motor model—see parts list)
+
+Procedure:
+
+1. Disconnect power and motor brake (electrical/mechanical)
+
+2. Remove motor from mounting bracket
+   - Note orientation (use alignment marks)
+   - Document wire connections
+
+3. Remove end bearing cap
+   - Typically 4–6 bolts
+   - Mark cap position (may have asymmetric bearing)
+
+4. Extract bearing
+   - If bearing rotates freely: pull straight out
+   - If bearing is tight: use bearing puller
+   - Do NOT force (may damage shaft)
+
+5. Install new bearing
+   - Clean shaft thoroughly
+   - Press bearing onto shaft until seated
+   - Bearing inner ring should spin freely
+
+6. Replace bearing cap and seals
+   - Apply thin layer of grease to seal surfaces
+   - Tighten bolts evenly (prevent warping)
+   - Torque specification: See motor label (typically 15–20 Nm)
+
+7. Re-install motor on bracket using alignment marks
+
+8. Reconnect electrical and brake wiring
+
+9. Test rotation (manual low-speed before power)
+
+===================================================
+MOTOR COUPLING ALIGNMENT
+===================================================
+
+Misalignment causes excessive bearing wear and vibration.
+
+Alignment Check Procedure:
+
+1. Disengage motor brake and disconnect load
+
+2. Measure runout using dial indicator:
+   - Place indicator on coupling face
+   - Rotate coupling 360°
+   - Record maximum radial movement
+   - Acceptable: <0.05 mm TIR (total indicated runout)
+
+3. Check axial alignment (angular misalignment):
+   - Mark motor and load shafts with reference lines
+   - Measure gap at 0°, 90°, 180°, 270°
+   - Acceptable: Variation <0.1 mm across circumference
+
+4. If misaligned:
+   - Loosen motor mounting bolts slightly
+   - Adjust shim pack (thin metal shims between motor and bracket)
+   - Verify alignment, then fully tighten bolts
+
+
+Coupling Type: Flexible jaw or elastomer insert
+  Check: Elastomer insert not cracked or deformed
+  Replace if: Visible damage or excessive play between hubs
+
+===================================================
+THERMAL PROTECTION
+===================================================
+
+Maximum Operating Temperature:
+  Motor winding: 100°C (Class F insulation)
+  Bearing: 80°C (grease breakdown temperature)
+  Housing: 60°C (touch-safe guidance)
+
+Temperature Monitoring:
+  - Embedded thermal protection switch (kills contactor if exceeded)
+  - Manual reset required after thermal shutdown
+  - Indicates: Overload, blocked load, or inadequate cooling
+
+Cooling Recommendations:
+  1. Ensure 150 mm clearance around motor for airflow
+  2. Do NOT block cooling fins or vents
+  3. In confined space: add forced cooling fan
+  4. Ambient >50°C: verify duty cycle vs. motor rating
+
+If frequent thermal shutdowns occur:
+  - Verify load is not mechanically stuck
+  - Check for jammed conveyor or binding
+  - Reduce duty cycle (continuous run → intermittent)
+  - Upgrade to higher-rated motor if load is permanent
+
+===================================================
+MAINTENANCE LOG TEMPLATE
+===================================================
+
+Motor ID: _______________
+Location: ________________
+Installation Date: _______
+
+Date | Operation | Hours | Operator | Notes | Next Service
+-----|-----------|-------|----------|-------|---------------
+ 
+ 
+ 
+
+===================================================
+END OF MAINTENANCE GUIDE
+===================================================
+
+For emergency service: SEW 24/7 Support +49 622 149-0
+Online documentation: https://www.sew-eurodrive.com/support

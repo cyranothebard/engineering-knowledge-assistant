@@ -1,0 +1,124 @@
+SICK MULTISCAN14 — TECHNICAL REFERENCE & TROUBLESHOOTING
+
+Document Version: 3.2
+Product Code: 1028112
+Source: SICK AG Technical Documentation
+Retrieved: 2026-02-14
+
+===================================================
+MEASUREMENT PRINCIPLES
+===================================================
+
+The Multiscan14 uses time-of-flight (ToF) laser measurement to determine object
+distance and dimensional consistency along a 1D line profile.
+
+Key Specifications:
+- Measurement Range: 50 mm to 2000 mm (typical)
+- Repeatability: ±0.1 mm at 1000 mm distance (1σ)
+- Measurement Frequency: 10 Hz, 25 Hz, or 50 Hz (configurable)
+- Output: EtherCAT over industrial ethernet
+- Wavelength: 905 nm (infrared)
+
+===================================================
+CALIBRATION PROCEDURE
+===================================================
+
+Required Materials:
+- Calibration reference plate (included with unit)
+- Mounting bracket specific to your application
+- Reference distance measurement (gauge or caliper)
+
+Steps:
+
+1. Mount reference plate perpendicular to laser beam
+   at distance specified in your configuration
+   (usually 500-1000 mm from sensor)
+
+2. Via engineering interface (Web UI or TIA Portal):
+   Navigate to: Sensor Config → Calibration
+
+3. Select "Run Calibration Routine"
+   System will:
+   - Take 10 measurements at current mounting position
+   - Calculate zero-distance offset
+   - Store calibration data in flash memory
+
+4. Remove reference plate
+
+5. Verify: Measure known reference object
+   Confirm reading matches expected distance ±0.2 mm
+
+===================================================
+COMMON FAILURE MODES
+===================================================
+
+Problem: Measurement readings consistently too high/too low
+Likely Cause: Calibration drift due to thermal change
+Solution: Re-run calibration procedure (see Section 2)
+Prevention: Calibrate once monthly or after 20°C temperature change
+
+Problem: Erratic or missing readings
+Likely Cause: Contaminated lens or optical misalignment
+Solution: 
+  1. Power down sensor
+  2. Inspect front lens for dust, condensation
+  3. Clean gently with soft, dry lens cloth
+  4. Power on and test
+Prevention: Protective lens cover when not in use
+
+Problem: No EtherCAT communication
+Likely Cause: Connector disconnection or cable damage
+Solution:
+  1. Verify M12 connector fully seated
+  2. Check cable for damage (kinked, torn insulation)
+  3. Power cycle sensor
+  4. Verify sensor appears in EtherCAT network scan
+Prevention: Cable strain relief, protected routing
+
+Problem: Temperature warnings in status
+Likely Cause: Sensor operating above 50°C ambient
+Solution:
+  - Verify mounting receives adequate air cooling
+  - Check for reflected heat from nearby lights or heaters
+  - Reduce measurement frequency if possible
+Prevention: Install thermal barrier or ventilation
+
+===================================================
+ELECTRICAL INTERFACE
+===================================================
+
+Connector Type: M12-A 5-pin (female on sensor)
+
+Pin Layout:
+1. EtherCAT TX (P)
+2. EtherCAT TX (N)
+3. EtherCAT RX (P)
+4. EtherCAT RX (N)
+5. Shield
+
+Cable Specifications:
+- Type: CAT.6A industrial EtherCAT cable (as per IEC 61076-2-101)
+- Maximum length: 100 meters per segment
+- Minimum bend radius: 4× cable diameter
+- Shielding: Must be connected to pin 5 and grounded at both ends
+
+Power Supply:
+- Via EtherCAT power coupler (SICK PLC branch connector)
+- Typical draw: 500 mA at 24 VDC
+- No separate power connection required
+
+===================================================
+DIAGNOSTIC INDICATORS
+===================================================
+
+LED Status (on sensor body):
+- Green: Ready/Operating normally
+- Orange: Warming up or in standby
+- Red: Fault condition (check EtherCAT diagnostics)
+- Off: No power
+
+===================================================
+END OF TECHNICAL REFERENCE
+===================================================
+
+For support: www.sick.com/en/troubleshooting

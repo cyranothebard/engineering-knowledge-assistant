@@ -1,0 +1,36 @@
+category,question,expected_sources,expected_themes
+Maintenance,How do I start Packaging Line 4?,Packaging Line 4 Startup SOP,startup sequence and acceptance checks
+Maintenance,What should operators verify before shutting down Packaging Line 4?,Packaging Line 4 Shutdown SOP,controlled shutdown and logging
+Maintenance,How do I calibrate the laser dimensioning station?,Laser Dimensioning Calibration Procedure,reference gauge block and repeatability
+Maintenance,Welche Ursachen wurden fuer Vibrationsalarme dokumentiert?,Untersuchung Vibrationsalarm Packaging Line 4,bearing wear imbalance loose motor mount
+Maintenance,What actions were recommended after the conveyor jam investigation?,Conveyor Jam Root Cause Analysis,alignment cleaning robot timing
+Quality,Why is the vision system generating false rejects?,Vision False Reject Investigation,lighting focus recipe issues
+Quality,What false reject target is allowed on Packaging Line 4?,Packaging Quality Standard,false reject below two percent
+Quality,Was ist vor dem Start der Vision Inspection Cell zu pruefen?,Bedienung Vision Inspection Cell,optics lighting recipe check
+Quality,What happens if two consecutive first articles fail?,Packaging Quality Standard,production blocked until quality release
+Quality,How is first article approval used during startup?,Packaging Line 4 Startup SOP; Packaging Quality Standard,first article release before nominal speed
+Safety,What is the approved lockout tagout process?,Lockout Tagout Procedure Lindau,energy isolation zero energy verification
+Safety,How do I enter the robot cell safely?,Robot Cell Entry Procedure,loto maintenance mode safe access
+Safety,Wann darf in den Gefahrenbereich eingegriffen werden?,Lockout Tagout Procedure Lindau,only after zero energy verification
+Safety,What must each worker use during lockout tagout?,Lockout Tagout Procedure Lindau,individual lock and tag
+Safety,What should happen before robot motion verification?,Robot Cell Entry Procedure,reduced speed teach pendant after safe entry
+Troubleshooting,What caused the laser station communication failure?,Stoerfall Laser Kommunikation; Industrial Ethernet Latency Investigation,switch port network errors cable issue
+Troubleshooting,What were the documented causes of network latency?,Industrial Ethernet Latency Investigation,broadcast traffic CRC errors inconsistent intervals
+Troubleshooting,How should operators respond to repeated false rejects?,Vision False Reject Investigation; Bedienung Vision Inspection Cell,stop process and verify lighting focus recipe
+Troubleshooting,Welche Sofortmassnahmen gab es beim Laser-Kommunikationsfehler?,Stoerfall Laser Kommunikation,reduced speed port check controls escalation
+Troubleshooting,What should be checked after conveyor jams recur?,Conveyor Jam Root Cause Analysis,side guides dust timing drift
+Process Knowledge,How does Packaging Line 4 startup interact with quality release?,Packaging Line 4 Startup SOP; Packaging Quality Standard,startup trial first article quality release
+Process Knowledge,Can a German query retrieve English startup documentation?,Packaging Line 4 Startup SOP,cross-language retrieval
+Process Knowledge,What is our approved machine learning validation process?,None,knowledge gap detection
+Process Knowledge,Do we have a predictive maintenance governance review procedure?,None,knowledge gap detection
+Process Knowledge,Which documents govern the industrial network?,Industrial Ethernet Latency Investigation,network configuration and troubleshooting context
+Cross-Reference,What should the RUN LED indicate when the S7-1500 is operating normally?,Siemens S7-1500 Alarm Diagnostics Reference Guide; Packaging Line 4 Startup SOP,LED states diagnostic indicators vendor documentation
+Cross-Reference,How do I verify laser sensor accuracy per SICK specifications?,SICK Multiscan14 Technical Reference; Laser Dimensioning Calibration Procedure,sensor calibration calibration reference plate SICK specs
+Cross-Reference,What is the proper SEW coupling alignment tolerance and how do I check it?,SEW MOVIGEAR Inline Planetary Gearmotor Maintenance Guide; Conveyor Jam Root Cause Analysis,coupling alignment dial indicator runout tolerance 0.05mm
+Cross-Reference,How should the Cognex camera be focused after a product format change?,Cognex InSight 7010 Vision System Reference Guide; Vision False Reject Investigation,focus ring lock set-screw optical alignment focus assist
+Cross-Reference,What are the EtherCAT slave discovery steps on PLC boot?,Industrial Ethernet and EtherCAT Troubleshooting Guide; Packaging Line 4 Startup SOP,EtherCAT boot sequence slave discovery network scan timeouts
+Cross-Reference,How do I safely enter the robot cell for maintenance work?,FANUC CRX-10iA Collaborative Robot Safety & Operation; Robot Cell Entry Procedure,LOTO protected space entry hold-to-run control teach pendant
+Cross-Reference,What WinCC HMI indicators show when all systems are ready for production?,Siemens WinCC Operator Panel Interface Guide; Packaging Line 4 Startup SOP,HMI status panel mode indicator operator feedback green status
+Cross-Reference,When should you perform a thermal protection reset on the SEW motor?,SEW MOVIGEAR Inline Planetary Gearmotor Maintenance Guide; Packaging Line 4 Startup SOP,thermal shutdown motor overload ambient temperature cooling
+Cross-Reference,What cable testing procedure is required for EtherCAT connections?,Industrial Ethernet and EtherCAT Troubleshooting Guide; Network Latency Investigation,CAT.6A cable continuity shield grounding pair isolation
+Cross-Reference,How do you recover from a SICK laser sensor EtherCAT communication timeout?,SICK Multiscan14 Technical Reference; Industrial Ethernet Troubleshooting; Network Latency Investigation,M12 connector cable diagnostics EtherCAT rescan network boot

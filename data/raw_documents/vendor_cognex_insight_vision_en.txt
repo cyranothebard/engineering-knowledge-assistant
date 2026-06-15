@@ -1,0 +1,149 @@
+COGNEX INSIGHT 7010 — VISION SYSTEM REFERENCE GUIDE
+
+Document Version: 6.4
+Product Family: InSight 7000 Series
+Source: Cognex Corporation
+Retrieved: 2026-02-14
+
+===================================================
+OPTICAL ALIGNMENT & FOCUS
+===================================================
+
+Focus Adjustment Procedure:
+
+1. Loosen focus ring lock (small set screw on lens turret)
+
+2. Place test object at typical working distance
+   (e.g., 200–300 mm for inspection cell)
+
+3. Via web interface:
+   Navigate to: Live View
+   Enable: Focus Assist (displays focus quality metric)
+
+4. Manually rotate focus ring slowly until image appears sharp
+   Monitor Focus Assist value (target: >80%)
+
+5. Locking focus ring:
+   - Rotate lock screw clockwise until snug
+   - Do NOT overtighten (may strip threads)
+   - Re-verify focus hasn't shifted
+
+6. Save focus position to tool database
+   (Important: aids in rapid tool recovery if camera is moved)
+
+===================================================
+LIGHTING SETUP & TROUBLESHOOTING
+===================================================
+
+Common Lighting Issues:
+
+Problem: Image too dark or feature contrast too low
+Causes:
+  - Insufficient ambient light
+  - Lighting angle creates glare zones
+  - Object surface reflectivity unexpected
+Solutions:
+  1. Via tool settings: Increase exposure time (max 10 ms)
+  2. Adjust external lighting angle (45° to surface preferred)
+  3. Consider backlight or side light complement
+  4. Test on sample parts before production
+
+Problem: Lighting causes washout (overexposed)
+Causes:
+  - Light too bright or too close
+  - Direct reflection off glossy surface
+Solutions:
+  1. Reduce external light intensity
+  2. Add diffuser or shade to light source
+  3. Lower exposure time in tool settings
+  4. Reposition light to reduce direct reflection
+
+Problem: Inconsistent images (flickering appearance)
+Causes:
+  - AC mains flicker (50/60 Hz interference)
+  - Rapid changes in ambient light
+Solutions:
+  1. Set camera framerate to sync with mains (49 Hz for 50 Hz supply)
+  2. Isolate workspace from external light changes
+  3. Verify lighting is on stable power (avoid daisy-chaining)
+
+===================================================
+CAMERA CALIBRATION
+===================================================
+
+Full calibration (required after physical relocation):
+
+1. Install alignment target or grid pattern at working distance
+
+2. Via Cognex EasyBuilder:
+   Tools Menu → Camera Calibration
+
+3. Follow wizard:
+   - Capture reference image of grid
+   - System calculates pixel-to-mm mapping
+   - Verify calibration by measuring known distance
+
+4. Save calibration (stored on camera's flash memory)
+
+Note: Calibration persists across power cycles.
+
+===================================================
+COMMON REJECT PATTERNS & CAUSES
+===================================================
+
+Rejection Pattern: False Rejects (good parts marked bad)
+Likely Causes:
+  - Focus drift due to thermal expansion
+  - Lighting intensity fluctuation
+  - Tool thresholds too tight
+  - Inspection recipe mismatch
+Diagnosis:
+  1. Enable image logging (captures rejected parts)
+  2. Review logged images for pattern
+  3. Compare against "golden" reference images
+Solution:
+  1. Re-calibrate focus
+  2. Widen inspection thresholds by 5–10%
+  3. Verify recipe matches current product SKU
+
+Rejection Pattern: Missed Defects (bad parts pass)
+Likely Causes:
+  - Thresholds too loose
+  - Defect too small for resolution
+  - Defect occurs outside inspection area
+Diagnosis:
+  1. Manually inspect failed parts
+  2. Mark defect location and size
+  3. Compare to inspection tool parameters
+Solution:
+  1. Tighten thresholds (increase sensitivity)
+  2. Expand inspection region
+  3. Consider alternative lighting for defect visibility
+
+===================================================
+RESET & TROUBLESHOOTING
+===================================================
+
+Cold Reset (clears temporary state, preserves tools):
+  1. Power cycle: OFF 10 seconds, then ON
+  2. Wait for camera to stabilize (green LED steady)
+  3. Tools resume normal operation
+
+Factory Reset (clears all user settings):
+  WARNING: This erases all tools and calibrations
+  1. Via EasyBuilder: Admin → Factory Reset
+  2. Confirm password (default: "admin")
+  3. System reboots to factory configuration
+  4. Recalibrate and reload tools from backup
+
+Network Reset (clears IP configuration):
+  1. Locate reset button on rear of camera (small pinhole)
+  2. With camera powered OFF: press button for 5 seconds
+  3. Power ON: camera defaults to DHCP mode
+  4. Rediscover camera via network scan
+
+===================================================
+END OF VISION SYSTEM REFERENCE
+===================================================
+
+For detailed setup: https://www.cognex.com/insight/documentation

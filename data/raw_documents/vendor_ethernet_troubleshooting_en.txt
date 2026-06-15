@@ -1,0 +1,185 @@
+INDUSTRIAL ETHERNET & ECAT TROUBLESHOOTING GUIDE
+
+Document Version: 3.4
+Scope: EtherCAT over Siemens SCALANCE switches + S7-1500
+Source: Siemens Automation + EtherCAT Technology Group
+Retrieved: 2026-02-14
+
+===================================================
+NETWORK DIAGNOSTICS OVERVIEW
+===================================================
+
+Typical Symptoms:
+
+1. Communication Timeout
+   - Exception: "Slave not responding within configured timeout"
+   - Recovery: Automatic retry or manual rescan
+   - Investigation: Check physical cables, switch LEDs
+
+2. Intermittent Faults
+   - Pattern: Devices connect/disconnect repeatedly
+   - Typical cause: Loose connector, cable integrity issue
+   - Investigation: Inspect all M12 connections
+
+3. Latency Spikes
+   - Symptom: Measurements inconsistent, control jerky
+   - Typical cause: Network congestion or broadcast storms
+   - Investigation: Check for rogue devices, excessive traffic
+
+===================================================
+PHYSICAL LAYER CHECKS
+===================================================
+
+LED Indicators on SCALANCE X312 Switch:
+
+Port Status LEDs (per port):
+  - Green, steady:     Port link active
+  - Green, blinking:   Data transmission in progress
+  - Orange:            10/100 Mbps negotiation in progress
+  - Red:               Port disabled or error
+  - Off:               No link or port powered off
+
+System Status LEDs:
+  - Power (Green):           Unit powered
+  - System (Green, blinking): Normal operation
+  - Alarm (Red):             Error condition (check diagnostics)
+
+Cable Inspection:
+
+1. Visual check: No visible kinks, cuts, or crushed sections
+2. Connector check: M12 connectors fully seated (audible click)
+3. Bend radius: Cable curves smoothly (minimum 4× outer diameter)
+4. Shielding: Shield connected to pin 5 at both ends
+5. Test continuity: Use multimeter on shield pair (should show <1 Ω)
+
+===================================================
+SWITCH CONFIGURATION VERIFICATION
+===================================================
+
+Accessing SCALANCE Configuration:
+
+  Via Web Interface (usual method):
+  1. Note switch IP address (default: 192.168.1.1)
+  2. Open browser: http://192.168.1.1
+  3. Login: admin / admin (change on first login)
+  4. Navigate: Maintenance → Network Configuration
+
+  Check these settings:
+  - VLAN assignment (usually default VLAN 1)
+  - Port speed (should auto-negotiate to 100 Mbps)
+  - Spanning tree disabled for EtherCAT
+  - No port mirroring enabled (reduces throughput)
+
+===================================================
+EtherCAT MASTER DIAGNOSTICS (S7-1500)
+===================================================
+
+Accessing EtherCAT Diagnostics via TIA Portal:
+
+  1. Online connection to PLC
+  2. Navigate: Diagnostics → Device Diagnostics
+  3. Select: EtherCAT Master → Operational Data
+
+  Status Information Displayed:
+
+  Cycle Time:           Current master scan cycle (typical: 10 ms)
+  Slaves Discovered:    Count of responsive slaves
+  Slaves Configured:    Expected slave count (should match discovered)
+  Frame Errors:         CRC errors in last 1000 frames
+  Transmission Errors:  Lost packets or timeouts
+
+  Threshold Alerts:
+  - Frame Error Rate >1%: Investigate cable issues
+  - Cycle Time >150% of configured: Network congestion
+  - Slaves Discovered < Configured: Missing slave (check power/cable)
+
+Usual Flow:
+  All OK:              1. Green status
+                       2. Slave count matches
+                       3. Error rate <0.1%
+
+===================================================
+COMMON NETWORK ISSUES
+===================================================
+
+Issue: Device disappears from network (temporary)
+Diagnosis:
+  1. Check LED on SCALANCE port (should be green)
+  2. Verify device still powered
+  3. Check cable connection at M12 (maybe loose)
+Solution:
+  1. Reseat M12 connector
+  2. Power cycle device (if safe)
+  3. If recurs: replace cable
+Prevention:
+  1. Use strain relief on cables
+  2. Avoid vibration-prone routing
+
+Issue: All devices offline after switch restart
+Diagnosis:
+  1. Check switch power (LED should be green)
+  2. Verify PLC IP gateway matches switch network
+  3. Check VLAN assignment
+Solution:
+  1. Power cycle PLC
+  2. Verify PLC and switch on same subnet
+  3. Rescan network in TIA Portal
+Prevention:
+  1. Configure static IPs instead of DHCP
+  2. Document network topology
+
+Issue: Latency warnings, but no communication errors
+Diagnosis:
+  1. Check for broadcast traffic (via switch diagnostics)
+  2. Verify no excessive ARP requests
+  3. Look for rogue DHCP server
+Solution:
+  1. Disable DHCP if all IPs static
+  2. Separate control network from IT network
+  3. Add managed switches if industrial network mixed with office IT
+Prevention:
+  1. Use separate network for factory floor
+  2. Implement network segmentation
+
+===================================================
+CABLE TESTING
+===================================================
+
+Using Network Cable Tester:
+
+1. Disconnect cable from both ends
+2. Insert into tester
+3. Verify all 8 wire pairs continuity
+4. Check for shorts (should show open circuit between pairs)
+5. Inspect shielding separately
+
+Expected Results for CAT 6A Cable:
+  - All 8 pins: Continuity <1 Ω
+  - Pair isolation: >100 MΩ
+  - Shield: <5 Ω to each end
+
+If test fails: Replace cable (do not reuse).
+
+===================================================
+BOOT SEQUENCE DIAGNOSTIC
+===================================================
+
+On PLC boot, expected sequence:
+
+1. [0 sec] Power on → SCALANCE powers on (takes ~10 sec to boot)
+2. [10 sec] PLC queries VLAN config from switch
+3. [12 sec] PLC sends out EtherCAT discovery frame
+4. [13 sec] Slaves respond with identity information
+5. [14 sec] PLC performs slave parameter download
+6. [15 sec] Master enters OPERATIONAL (green status)
+7. [16 sec] First real-time cycle begins
+
+If cycle stalls at step 3–4: Cable or slave issue
+If cycle stalls at step 5: Slave configuration mismatch
+If cycle hangs at step 2: Switch or IP configuration problem
+
+===================================================
+END OF TROUBLESHOOTING GUIDE
+===================================================
+
+For complex diagnostics: Siemens Field Service siemens.com/automation

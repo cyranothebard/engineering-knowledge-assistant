@@ -1,0 +1,128 @@
+SIEMENS S7-1500 — ALARM DIAGNOSTICS REFERENCE GUIDE
+
+Document Version: 4.1 (TIA Portal V17)
+Source: Siemens Automation Support
+Retrieved: 2026-02-14
+
+===================================================
+DIAGNOSTIC LED STATES
+===================================================
+
+PLC Front Panel LED Indicators:
+
+RUN LED (Green):
+- Off: PLC is not operating (standby or fault)
+- Steady: Normal operation
+- Blinking (fast): Program being executed, no errors
+- Blinking (slow): CPU in RUN mode, wait state
+
+ERR LED (Red):
+- Off: No errors present
+- Steady: Hardware or firmware fault detected
+- Blinking: Non-critical error or warning state
+
+BF LED (Yellow):
+- Steady: Battery-backed memory low or backup power issue
+- Off: Battery status normal
+
+===================================================
+COMMON ALARM CODES (0x8xxx range)
+===================================================
+
+0x8100 — Hardware Module Defect
+  Cause: I/O module failure or disconnection
+  Action: Verify module seating, power supply
+  Reference: Section 2.4 – Module Replacement
+
+0x8101 — I/O Module Data Transfer Error
+  Cause: Communication timeout between PLC and module
+  Action: Check cable connections, verify baud rate settings
+  Reference: Section 3.1 – Communication Diagnostics
+
+0x8110 — Analog Input Overrange
+  Cause: Measured value exceeds sensor range
+  Action: Check sensor calibration and physical limits
+  Reference: Sensor specifications (user-supplied)
+
+0x8120 — Digital Input Wire Break
+  Cause: Open circuit detected on input
+  Action: Inspect wiring, verify sensor connection
+  Reference: Section 4.2 – Wiring Verification
+
+0x8330 — Memory Card Not Inserted
+  Cause: SD card or program memory not present
+  Action: Insert appropriate memory card
+  Reference: Section 1.3 – Startup Requirements
+
+===================================================
+TROUBLESHOOTING FLOWCHART
+===================================================
+
+Step 1: Check ERR LED
+  - If OFF: No critical error, proceed to Step 2
+  - If STEADY RED: Record alarm code from HMI, note timestamp
+  - If BLINKING: Non-critical fault, monitor system
+
+Step 2: Access Diagnostics
+  a) Via HMI/WinCC: Diagnostics → System Status
+  b) Via USB: TIA Portal Diagnostics view
+  c) Note alarm timestamp and code
+
+Step 3: Cross-Reference Alarm Code
+  - Locate code in Alarm Code table (Section 2)
+  - Read recommended action
+  - Verify against your equipment configuration
+
+Step 4: Perform Recommended Action
+  - Follow step-by-step procedure
+  - Document changes (date, time, operator)
+  - Test before returning to automatic mode
+
+Step 5: If Fault Persists
+  - Cycle power (OFF 30 seconds, then ON)
+  - Contact Siemens support if fault recurs
+  - Provide alarm log export
+
+===================================================
+COMMUNICATION DIAGNOSTICS
+===================================================
+
+EtherCAT Master Diagnostics (S7-1500):
+
+1. Check Network Configuration
+   Path: TIA Portal → Hardware → Network → EtherCAT
+   Verify: Master device is S7-1500, Port 1
+   Verify: Slave count matches physical attachments
+
+2. Physical Link Status
+   - Green LED on S7-1500 EtherCAT port: Link established
+   - Orange LED: Communication activity
+   - Red LED: Link fault or misconfiguration
+
+3. Slave Communication Timeout
+   If slave does not respond within configured timeout:
+   - Check EtherCAT cable connections
+   - Verify slave IP address in TIA Portal
+   - Rescan network (may restore communication)
+
+===================================================
+POWER CYCLE RECOVERY PROCEDURE
+===================================================
+
+For persistent fault conditions:
+
+1. Stop all running processes via HMI STOP button
+2. Switch PLC to STOP mode (physical switch or software)
+3. Disconnect main power supply (24 VDC)
+4. Wait 30 seconds (allows capacitors to discharge)
+5. Reconnect power
+6. Monitor ERR LED for 10 seconds
+   - If LED remains OFF: System recovered
+   - If LED blinks or steady: Fault is persistent, skip Step 7
+7. Resume operation; document incident
+
+===================================================
+END OF DIAGNOSTIC REFERENCE
+===================================================
+
+For additional support: https://support.industry.siemens.com

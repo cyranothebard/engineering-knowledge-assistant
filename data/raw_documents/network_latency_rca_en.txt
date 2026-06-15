@@ -1,0 +1,139 @@
+INDUSTRIAL ETHERNET LATENCY INVESTIGATION (RCA-NET-001)
+
+Equipment: SCALANCE X312-3LD Managed Switch + Siemens S7-1500 EtherCAT Master
+Affected Devices: Cognex InSight 7010, SICK Multiscan14, SEW Motor Controller x2
+Date: 2026-03-17
+Downtime Impact: No hard stop; 4.5 minutes of degraded throughput (cycle time +38%)
+
+---
+EVENT DESCRIPTION
+---
+
+During a product format changeover on Packaging Line 4, communication latency
+between the S7-1500 PLC and all EtherCAT field devices increased significantly.
+No hard production stop, but conveyor timing drifted causing product spacing
+anomalies and an elevated vision false-reject rate (3.8% instead of <2%).
+
+Primary symptom: EtherCAT cycle time rose from 10 ms baseline to 13.8 ms average
+(+38%) over the 4.5-minute window.
+
+Reference: VENDOR-ECAT-NET-001 (Section 3: Threshold Alerts - Cycle Time >150% alert)
+
+---
+FINDINGS
+---
+
+Finding 1: Broadcast Traffic Spike During Recipe Download
+
+  Root cause: Recipe download from HMI to Cognex InSight 7010 injects large
+  UDP broadcast frames onto the EtherCAT network segment.
+
+  Evidence:
+  - SCALANCE X312 diagnostic showed broadcast traffic spike: 230 frames/sec
+    during recipe download (normal: <10 frames/sec)
+  - Correlated exactly with elevated cycle time window (11:34:20 - 11:38:50)
+  - EtherCAT protocol is sensitive to broadcast interference (deterministic
+    timing disrupted by non-EtherCAT traffic)
+
+  Reference: VENDOR-ECAT-NET-001 (Section 4: Latency Warnings - broadcast traffic)
+  Reference: VENDOR-SIEMENS-S7-001 (Section 3: EtherCAT Communication Diagnostics)
+
+Finding 2: SCALANCE Port 3 Intermittent CRC Errors
+
+  Root cause: Port 3 (connected to SICK Multiscan14 laser sensor) showed
+  recurring CRC frame errors due to marginal cable shielding.
+
+  Evidence:
+  - SCALANCE diagnostics: Port 3 showing 12 CRC errors per 1000 frames
+    (threshold alert: >1% = >10 per 1000)
+  - Cable visual inspection: Small nick in outer jacket at cable tray entry;
+    partial shield breach visible
+  - When SICK laser disconnected from Port 3, CRC errors ceased immediately
+
+  Cable spec violation: Shield continuity measured at 8.7 Ohm (should be <5 Ohm)
+  Reference: VENDOR-ECAT-NET-001 (Section 5: Cable Testing - shield spec <5 Ohm)
+  Reference: VENDOR-SICK-MS-001 (Section 3: Electrical Interface - shielding requirements)
+
+Finding 3: Inconsistent Device Update Intervals
+
+  Root cause: EtherCAT slave update intervals were not standardized at
+  commissioning. Devices reporting at different intervals create irregular
+  master cycle timing.
+
+  Evidence:
+  - TIA Portal EtherCAT configuration review:
+    * SICK Multiscan14: Configured at 25 Hz (40 ms)
+    * Cognex InSight 7010: Configured at 50 Hz (20 ms)
+    * SEW Motor Controllers (x2): Configured at 10 Hz (100 ms)
+  - Mixed update intervals force EtherCAT master to manage multiple timing
+    windows simultaneously, reducing determinism
+  - Reference: VENDOR-ECAT-NET-001 (Section 3: EtherCAT Master Configuration)
+
+---
+ACTIONS TAKEN
+---
+
+1. Network Segmentation: Engineering traffic separated from EtherCAT runtime
+   - SCALANCE VLAN configuration updated: VLAN 10 = EtherCAT only
+     VLAN 20 = Engineering/HMI traffic
+   - Recipe downloads from HMI now route through VLAN 20; no broadcast
+     interference on VLAN 10
+   - Reference: VENDOR-ECAT-NET-001 (Section 4: Prevention - separate networks)
+
+2. Faulty Cable Replacement:
+   - SICK Multiscan14 EtherCAT cable replaced (full CAT.6A industrial cable)
+   - New shield continuity: 0.9 Ohm (well within <5 Ohm spec)
+   - Port 3 CRC error rate after replacement: 0.00% over 30-minute observation
+   - Reference: VENDOR-ECAT-NET-001 (Section 5: Cable Testing procedure)
+   - Reference: VENDOR-SICK-MS-001 (Section 3: Cable spec requirements)
+
+3. Update Interval Standardization:
+   - All EtherCAT slaves reconfigured to 25 Hz (40 ms) as standard
+   - Exceptions: SEW motor controllers must remain at 10 Hz (drive controller
+     limitation - higher rates cause drive fault)
+   - Result: Cycle time variance reduced from ±4.2 ms to ±0.8 ms
+   - Reference: VENDOR-ECAT-NET-001 (Section 3: Slave parameter configuration)
+
+4. SCALANCE Monitoring Alert Added:
+   - Configured SCALANCE to alert Operations if Port CRC error rate >0.5%
+   - Alert destination: WinCC alarm panel via SNMP trap
+   - This enables earlier detection before latency reaches critical level
+
+---
+VALIDATION RESULTS (Post-Fix)
+---
+
+  Metric               Before Fix    After Fix    Change
+  -------              ----------    ---------    ------
+  EtherCAT cycle time  13.8 ms avg   10.1 ms avg  -27%
+  Frame error rate     1.2%          0.0%         Eliminated
+  Broadcast frames     230/sec peak  8/sec peak   -97%
+  Vision false-reject  3.8%          1.1%         -71%
+  Conveyor timing jitter +38%        +1%          Near-eliminated
+
+---
+LESSONS LEARNED
+---
+
+1. EtherCAT and HMI/engineering traffic should always be on separate VLANs.
+   Recipe downloads are frequent and bursty - do not share with real-time bus.
+
+2. Cable shield integrity is a silent killer: partial shield damage causes
+   intermittent CRC errors that are easy to miss without active monitoring.
+   Visual inspection at commissioning AND after any cable routing changes.
+
+3. Update interval standardization matters at commissioning, not after problems.
+   Should be part of network configuration standard document.
+
+---
+DOCUMENT REFERENCES
+---
+
+  VENDOR-ECAT-NET-001: Industrial Ethernet Troubleshooting Guide (all sections)
+  VENDOR-SIEMENS-S7-001: S7-1500 EtherCAT diagnostics
+  VENDOR-SICK-MS-001: SICK laser cable/electrical specifications
+  VENDOR-COGNEX-INS-001: Cognex recipe download behavior
+  VENDOR-SIEMENS-WCC-001: WinCC SNMP alert configuration
+
+Investigation completed: 2026-03-17
+Approved by: Controls Engineering Lead

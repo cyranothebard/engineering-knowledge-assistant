@@ -1,0 +1,17 @@
+{
+  "total_questions": 27,
+  "helpful_responses": 0,
+  "unhelpful_responses": 0,
+  "top_searched_equipment": {
+    "Packaging Line 4": 19,
+    "Siemens S7-1500 PLC": 8,
+    "Siemens WinCC HMI": 5,
+    "Laser Dimensioning Station": 4,
+    "SICK Multiscan14 Laser": 2,
+    "FANUC CRX-10iA Robot": 1,
+    "Cognex InSight 7010 Vision Camera": 3,
+    "SEW MOVIGEAR Drive": 3,
+    "Conveyor System A": 1,
+    "Robot Cell": 5
+  }
+}
