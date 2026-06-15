@@ -5,6 +5,14 @@
 **Status:** Functional MVP complete | **Framework stage:** Knowledge Layer  
 **Stack:** Python · Streamlit · LangChain · ChromaDB · OpenAI Embeddings · Pandas · Pydantic · Plotly · Docker
 
+## Quick Links
+
+- [Architecture](docs/architecture.md)
+- [Quick Start](#quick-start)
+- [Demo Runbook](docs/demo-runbook.md)
+- [Evaluation Set](docs/evaluation_set.csv)
+- [Documentation Index](docs/README.md)
+
 ---
 
 ## Executive Summary
@@ -261,6 +269,18 @@ If no API key is configured, the application falls back to deterministic local e
 docker build -t engineering-knowledge-assistant .
 docker run -p 8501:8501 engineering-knowledge-assistant
 ```
+
+## Demo Questions
+
+Use these in live demos to show multilingual retrieval, citations, governance, and practical operations relevance:
+
+- "Which SOP is currently approved for Packaging Line 4 startup, and what is the revision?"
+- "Welche Sicherheitsfreigaben sind vor Wartung am Conveyor System A erforderlich?"
+- "Show RCA findings related to repeated vision-inspection false rejects."
+- "What troubleshooting steps are documented for robot cell communication faults?"
+- "Do we have approved guidance for predictive maintenance model validation?"
+
+The fifth prompt is intentionally likely to surface a knowledge-gap signal.
 
 ---
 
