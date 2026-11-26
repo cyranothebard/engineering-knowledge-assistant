@@ -114,7 +114,7 @@ See [docs/architecture.md](docs/architecture.md) for the logical system view.
 
 ## Product Snapshot
 
-![Engineering Knowledge Assistant UI](docs/images/engineering-knowledge-assistant-ui.png)
+![Engineering Knowledge Assistant UI](docs/images/engineering-knowledge-assistant-ui-v2.png)
 
 ---
 
