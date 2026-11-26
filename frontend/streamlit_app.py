@@ -39,20 +39,23 @@ st.markdown(
 
     /* Citation cards */
     .citation-card {
-        background: #f8f9fa;
-        border-left: 3px solid #0d6efd;
+        background: var(--secondary-background-color);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        border-left: 3px solid var(--primary-color);
         padding: 8px 12px;
         margin-bottom: 6px;
         border-radius: 4px;
         font-size: 0.88rem;
     }
     .citation-card .doc-title { font-weight: 600; }
-    .citation-card .doc-meta  { color: #6c757d; font-size: 0.80rem; }
+    .citation-card .doc-meta  { color: var(--text-color); opacity: 0.72; font-size: 0.80rem; }
 
     /* Answer box */
     .answer-box {
-        background: #ffffff;
-        border: 1px solid #dee2e6;
+        background: var(--secondary-background-color);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 16px 20px;
         line-height: 1.65;
@@ -75,14 +78,14 @@ st.markdown(
 
 # ── Service singletons ─────────────────────────────────────────────────────────
 
-@st.experimental_singleton
+@st.cache_resource
 def get_service() -> KnowledgeAssistantService:
     service = KnowledgeAssistantService(get_settings())
     service.build_or_load_index(rebuild=False)
     return service
 
 
-@st.experimental_singleton
+@st.cache_resource
 def get_metrics_store() -> UsageMetricsStore:
     return UsageMetricsStore(get_settings().usage_metrics_path)
 
@@ -139,13 +142,11 @@ def render_sidebar_metrics(metrics: dict) -> None:
         )
         fig.update_layout(
             margin=dict(l=0, r=0, t=24, b=0),
-            plot_bgcolor="white",
-            paper_bgcolor="white",
             yaxis_title=None,
             xaxis_title=None,
             title=dict(text="Top Equipment", font=dict(size=12)),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, theme="streamlit")
 
 
 def render_citation_card(citation: object) -> None:
@@ -210,17 +211,16 @@ def main() -> None:
         cols = st.columns(2)
         for i, ex in enumerate(examples):
             if cols[i % 2].button(ex, key=f"ex_{i}"):
-                st.session_state["prefill_question"] = ex
+                st.session_state["question"] = ex
+                st.session_state.pop("last_answer", None)
 
     # ── Query input ────────────────────────────────────────────────────────────
-    prefill = st.session_state.pop("prefill_question", "")
-
     col_q, col_lang = st.columns([4, 1])
     with col_q:
         question = st.text_input(
             "Ask an engineering question",
-            value=prefill,
             placeholder="e.g. How do I calibrate the laser dimensioning station?",
+            key="question",
         )
     with col_lang:
         language_choice = st.selectbox(
@@ -231,16 +231,22 @@ def main() -> None:
     search_clicked = st.button("🔍 Search knowledge base")
 
     # ── Results ────────────────────────────────────────────────────────────────
-    if search_clicked and question.strip():
-        preferred_language = {"English": "en", "Deutsch": "de"}.get(language_choice)
+    if search_clicked:
+        if not question.strip():
+            st.warning("Enter a question or choose an example question to search.")
+        else:
+            preferred_language = {"English": "en", "Deutsch": "de"}.get(language_choice)
 
-        with st.spinner("Searching knowledge base…"):
-            answer = service.ask(question, preferred_language=preferred_language)
+            with st.spinner("Searching knowledge base…"):
+                answer = service.ask(question, preferred_language=preferred_language)
 
-        metrics_store.record_question(question, answer.retrieved_documents)
-        if answer.knowledge_gap_detected:
-            metrics_store.record_knowledge_gap()
+            metrics_store.record_question(question, answer.retrieved_documents)
+            if answer.knowledge_gap_detected:
+                metrics_store.record_knowledge_gap()
+            st.session_state["last_answer"] = answer
 
+    answer = st.session_state.get("last_answer")
+    if answer is not None:
         _divider()
 
         # Layout: answer + citations side by side
@@ -253,13 +259,13 @@ def main() -> None:
             if answer.knowledge_gap_detected:
                 st.markdown(
                     f'<span class="badge-gap">⚠️ Knowledge gap detected</span> '
-                    f'<span style="color:#6c757d;font-size:0.82rem;">{answer.knowledge_gap_reason}</span>',
+                    f'<span style="color:var(--text-color);opacity:0.72;font-size:0.82rem;">{answer.knowledge_gap_reason}</span>',
                     unsafe_allow_html=True,
                 )
             else:
                 st.markdown(
                     _confidence_badge(answer.confidence)
-                    + f'<span style="color:#6c757d;font-size:0.82rem;margin-left:8px;">score {answer.confidence_score:.2f}</span>',
+                    + f'<span style="color:var(--text-color);opacity:0.72;font-size:0.82rem;margin-left:8px;">score {answer.confidence_score:.2f}</span>',
                     unsafe_allow_html=True,
                 )
 
@@ -295,11 +301,10 @@ def main() -> None:
                 # Format score as percentage-style float
                 if "score" in df.columns:
                     df["score"] = df["score"].map(lambda x: f"{x:.3f}")
-                st.dataframe(df, width=None, height=None)
+                st.dataframe(df, use_container_width=True)
             else:
                 st.write("No documents retrieved.")
 
 
 if __name__ == "__main__":
     main()
-
